@@ -19,9 +19,8 @@ CREATE TABLE `machines` (
     `id` int NOT NULL,
     `nom` TEXT UNIQUE,
     `ip` TEXT,
-    `etat` TEXT,
-    'espace_total' TEXT,
-    'espace_disponible' TEXT,
+    'espace_total' DECIMAL(10,2),
+    'espace_disponible' DECIMAL(10,2),
     `owner_id` int NOT NULL,
     PRIMARY KEY (`id`),
     CONSTRAINT FOREIGN KEY (`owner_id`) REFERENCES `users` (`id`)
