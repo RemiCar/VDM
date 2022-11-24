@@ -11,7 +11,7 @@ def add(cur, *arg):
         exit()
     nom, ip, user = arg[0], arg[1], arg[2]
     # A partir du nom du user, on doit recuperer son id dans la table Users
-    user_id = get_userid(cur,user)[0]
+    user_id = get_userid(cur,user)[0][0]
     request="""
         INSERT INTO Machine (Nom, IP, Owner_id) VALUES 
             (?,?,?)
@@ -32,8 +32,8 @@ def get_userid(cur,*arg):
         SELECT User_id FROM Users
         WHERE Nom_user = ?
     ;"""
-    res = cur.execute(request,[nom_user])
-    return res.fetchone()
+    cur.execute(request,[nom_user])
+    return [l for l in cur]
 
 def remove(cur, *arg):
     ### Supprime une machine 'nom'
@@ -43,7 +43,7 @@ def remove(cur, *arg):
         exit()
     nom = arg[0]
     request="""
-        DELETE FROM machine
+        DELETE FROM Machine
         WHERE Nom = ?
     ;"""
     try:
@@ -59,9 +59,9 @@ def change(cur, *arg):
         exit()
     old, new = arg[0], arg[1]
     request="""
-        UPDATE machines 
-        SET nom = ?
-        WHERE nom = ?
+        UPDATE Machine
+        SET Nom = ?
+        WHERE Nom = ?
     ;"""
     try:
         cur.execute(request,[new,old])
@@ -74,8 +74,8 @@ def liste_all(cur):
         SELECT Machine.Nom, Machine.IP, Users.Nom_user FROM Machine
         INNER JOIN Users ON Machine.owner_id=Users.User_id
     ;"""
-    res = cur.execute(request)
-    return res.fetchall()
+    cur.execute(request)
+    return [l for l in cur]
 
 def liste(cur, *arg):
     ### Liste les machines d'un user 'nom'
@@ -89,13 +89,14 @@ def liste(cur, *arg):
         INNER JOIN Users ON Machine.owner_id=Users.User_id 
         WHERE Users.Nom_user = ?
     ;"""
-    res = cur.execute(request,[nom])
+    cur.execute(request,[nom])
+    return [l for l in cur]
 
 
 
 argv= sys.argv[1:]
 
-_fonction = {'add' : add,'remove' : remove, 'change': change, 'liste': liste}
+_fonction = {'add' : add,'remove' : remove, 'change': change, 'liste': liste, 'liste_all' : liste_all}
 
 if argv[0] not in _fonction:
     print("Erreur: option invalide")
@@ -108,6 +109,6 @@ except mariadb.Error as e:
     exit()
 
 cur = conn.cursor()
-_fonction[argv[0]](cur,*argv[1:])
+res = _fonction[argv[0]](cur,*argv[1:])
 conn.commit()
 conn.close()
