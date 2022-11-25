@@ -13,10 +13,11 @@ def ping(address):
 
 
 
-all_machines =  cs.cgi_connect('liste_all')
+res =  cs.cgi_connect('liste_all')
+all_machines = [list(m) for m in res]
 
 for machine in all_machines:
-    machine[1] = ping(machine[1])
+    machine.append(ping(machine[1]))
 
 ### HEADER HTML
 html="""Content-type: text/html
@@ -35,7 +36,7 @@ html+="""
         <ul>"""
 for machine in all_machines:
     html+="""
-            <li>""" + machine[0] + """ | """ + machine[1] + """ | """ + machine[2] + """ </li>"""
+            <li>""" + machine[0] + """ | """ + machine[3] + """ | """ + machine[2] + """ </li>"""
 html+="""
         </ul>
         <br>"""
