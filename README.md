@@ -4,7 +4,7 @@
 
 ### Installation
 
-### NGINX
+#### NGINX
 Créer un utilisateur VDM_user
 Mettre la conf nginx/serverhttps.fr.conf dans le dossier /etc/nginx/sites-available et le lien symbolique dans sites-enabled et redemarrer nginx.
 Changer la conf du service fcgiwrap en changeant l'user en VDM_user
