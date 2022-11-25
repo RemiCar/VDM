@@ -5,7 +5,7 @@ import os
 
 
 def ping(address):
-    response = os.system("ping -c1 -w1 "+address)
+    response = os.system("ping -c1 -w1 "+address+"&>/dev/null")
     if response == 0:
         return '<p style="color:rgb(0,100,0)">UP</p>'
     else:
