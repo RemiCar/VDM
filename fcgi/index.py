@@ -6,24 +6,20 @@ import subprocess
 
 
 def ping(address):
-    #response = os.system("ping -c1 -w1 "+address+" &>/dev/null"
-    #process=subprocess.Popen("ping -c1 -w1 "+address+" &>/dev/null", shell=True, stdout=subprocess.PIPE)
     response=subprocess.run(["ping","-c","1","-w","1",address], stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode
-    #process.wait()
-    #response = process.returncode
-    print()
     if response == 0:
         return '<p style="color:rgb(0,100,0)">UP</p>'
     else:
         return '<p style="color:rgb(255,0,0)">DOWN</p>'
 
 
-
 res =  cs.cgi_connect('liste_all')
 all_machines = [list(m) for m in res]
 
+for machine in all_machines:
+    machine.append(ping(machine[1]))
 
-
+    
 ### HEADER HTML
 html="""Content-type: text/html
 
@@ -34,11 +30,9 @@ html="""Content-type: text/html
     </head>
     <body>
         """
-print(html)
-for machine in all_machines:
-    machine.append(ping(machine[1]))
+
 ### BODY HTML
-html="""
+html+="""
         <ul>"""
 for machine in all_machines:
     html+="""
