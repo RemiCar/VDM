@@ -6,7 +6,6 @@ import re
 import core_script as cs
 
 def menu(cmd):
-    
     if re.match('^(add |remove |change |liste |liste_all )',cmd): 
         arg= cmd.split(' ')
         return str(cs.cgi_connect(*arg))
@@ -17,8 +16,6 @@ def menu(cmd):
     else :
         print(f"reçu {cmd}")
         return 'Commande Inconnue'
-
-
 
 
 if __name__=="__main__":
