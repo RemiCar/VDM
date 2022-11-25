@@ -5,7 +5,7 @@ import os
 
 
 def ping(address):
-    response = os.system("ping -c1 -w1 "+address+"&>/dev/null")
+    response = os.system("ping -c1 -w1 "+address+" &>/dev/null")
     if response == 0:
         return '<p style="color:rgb(0,100,0)">UP</p>'
     else:
@@ -14,6 +14,9 @@ def ping(address):
 
 
 all_machines =  cs.cgi_connect('liste_all')
+
+for machine in all_machines:
+    machine[1] = ping(machine[1])
 
 ### HEADER HTML
 html="""Content-type: text/html
@@ -32,7 +35,7 @@ html+="""
         <ul>"""
 for machine in all_machines:
     html+="""
-            <li>""" + machine[0] + """ | """ + ping(machine[1]) + """ | """ + machine[2] + """ </li>"""
+            <li>""" + machine[0] + """ | """ + machine[1] + """ | """ + machine[2] + """ </li>"""
 html+="""
         </ul>
         <br>"""
