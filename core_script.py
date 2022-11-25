@@ -3,7 +3,7 @@
 import sys
 import mariadb
 
-_DB_INFORMATION_={'user':"user_vdm",'password':"0000",'host':"localhost",'port':3306, 'database':"VDM"}
+_DB_INFORMATION_={'user':"VDM_user",'password':"VDM",'host':"localhost",'port':3306, 'database':"VDM"}
 
 def add(cur, *arg):
     ### Ajoute une nouvelle machine (nom, ip, user)
