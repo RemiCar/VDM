@@ -1,6 +1,6 @@
 #!/bin/python
 
-import main_script as ms
+import core_script as cs
 import os
 
 
@@ -13,10 +13,7 @@ def ping(address):
 
 
 
-
-
-all_machines = ms.sel_all() # Fonction de main_script qui "SELECT machines.nom, machines.ip, users.nom FROM machines INNER JOIN users ON ..."
-
+all_machines =  cs.cgi_connect('liste_all')
 
 ### HEADER HTML
 html="""Content-type: text/html
@@ -35,7 +32,7 @@ html+="""
         <ul>"""
 for machine in all_machines:
     html+="""
-            <li>""" + all_machines[0] + """ | """ + ping(all_machines[1]) + """ | """ + all_machines[2] + """ </li>"""
+            <li>""" + machine[0] + """ | """ + ping(machine[1]) + """ | """ + machine[2] + """ </li>"""
 html+="""
         </ul>
         <br>"""
