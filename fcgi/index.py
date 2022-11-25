@@ -1,11 +1,13 @@
-#!/bin/python
+#!/bin/python3
 
 import core_script as cs
 import os
+import subprocess
 
 
 def ping(address):
-    response = os.system("ping -c1 -w1 "+address+" &>/dev/null")
+    sysout=open(os.devnull,'w')
+    response = subprocess.run(["ping", "-c","1", "-w","1", address],stdout=sysout, stderr=sysout).returncode
     if response == 0:
         return '<p style="color:rgb(0,100,0)">UP</p>'
     else:
