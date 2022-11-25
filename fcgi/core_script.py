@@ -9,8 +9,7 @@ def add(cur, *arg):
     ### Ajoute une nouvelle machine (nom, ip, user)
     # Verification argument
     if len(arg) != 3:
-        print("Arguments incorrect")
-        exit()
+        return "Arguments incorrect"
     nom, ip, user = arg[0], arg[1], arg[2]
     # A partir du nom du user, on doit recuperer son id dans la table Users
     user_id = get_userid(cur,user)[0][0]
@@ -29,8 +28,7 @@ def get_userid(cur,*arg):
     ### Retourne l'id d'un user 'nom_user'
     # Verification argument
     if len(arg) != 1:
-        print("Arguments incorrect")
-        exit()
+        return "Arguments incorrect"
     nom_user = arg[0]
     request="""
         SELECT User_id FROM Users
@@ -43,8 +41,7 @@ def remove(cur, *arg):
     ### Supprime une machine 'nom'
     # Verification argument
     if len(arg) != 1:
-        print("Arguments incorrect")
-        exit()
+        return "Arguments incorrect"
     nom = arg[0]
     request="""
         DELETE FROM Machine
@@ -61,7 +58,7 @@ def change(cur, *arg):
     ### Change le nom du machine (old) par un nouveau (new)
     # Verification argument
     if len(arg) != 2:
-        print("Arguments incorrect")
+        return "Arguments incorrect"
         exit()
     old, new = arg[0], arg[1]
     request="""
@@ -89,8 +86,7 @@ def liste(cur, *arg):
     ### Liste les machines d'un user 'nom'
     # Verification argument
     if len(arg) != 1:
-        print("Arguments incorrect")
-        exit()
+        return "Arguments incorrect"
     nom = arg[0]
     request="""
         SELECT Machine.Nom, Machine.IP FROM Machine 
@@ -105,8 +101,7 @@ def cgi_connect(*arg):
     _fonction = {'add' : add,'remove' : remove, 'change': change, 'liste': liste, 'liste_all' : liste_all}
 
     if arg[0] not in _fonction:
-        print("Erreur: option invalide")
-        exit()
+        return "Erreur: option invalide"
 
     try:
         conn = mariadb.connect(**_DB_INFORMATION_)
@@ -128,8 +123,7 @@ if __name__=="__main__":
     _fonction = {'add' : add,'remove' : remove, 'change': change, 'liste': liste, 'liste_all' : liste_all}
 
     if argv[0] not in _fonction:
-        print("Erreur: option invalide")
-        exit()
+        return "Erreur: option invalide"
 
     try:
         conn = mariadb.connect(**_DB_INFORMATION_)
