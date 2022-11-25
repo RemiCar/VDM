@@ -102,7 +102,7 @@ def liste(cur, *arg):
 
 def cgi_connect(*arg):
 
-    _fonction = {'liste_all' : liste_all}
+    _fonction = {'add' : add,'remove' : remove, 'change': change, 'liste': liste, 'liste_all' : liste_all}
 
     if arg[0] not in _fonction:
         print("Erreur: option invalide")
