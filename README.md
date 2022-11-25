@@ -4,10 +4,22 @@
 
 ### Installation
 
+### NGINX
+Créer un utilisateur VDM_user
+Mettre la conf nginx/serverhttps.fr.conf dans le dossier /etc/nginx/sites-available et le lien symbolique dans sites-enabled et redemarrer nginx.
+Changer la conf du service fcgiwrap en changeant l'user en VDM_user
+Démarrer fcgi
+
+
 Changer le owner de core_script.py pour VDM_user
-Donner les droits d'execution/
+Donner les droits d'execution
 Ajouter un lien symbolique de core_script.py à /usr/bin/
 Le rajouter à la variable $PATH
+
+Installer le module mariadb
+Faire la configuration de mariadb et créer un user
+Récupérer le contenu de la bdd dans le fichier VDM.sql
+Lancer mariadb
 
 ### Utilisation
 

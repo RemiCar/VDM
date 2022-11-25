@@ -2,21 +2,22 @@
 
 import socket
 import os
-
+import re
+import core_script as cs
 
 def menu(cmd):
-    match cmd:
-        case 'quit':
-            return "Déconnexion"
-        case 'ls':
-            return str(os.listdir())
-        case _:
-            print(f"reçu {cmd}")
-            return 'Commande Inconnue'
-
-
-
-
+    
+    if re.match('^(add |remove |change |liste |liste_all)',cmd): 
+        arg= cmd.split(' ')
+        return str(cs.cgi_connect(*arg))
+#    elif re.match('^')
+    elif cmd== 'quit':
+        return "Déconnexion"
+    elif cmd== 'ls':
+        return str(os.listdir())
+    else :
+        print(f"reçu {cmd}")
+        return 'Commande Inconnue'
 
 
 
@@ -24,7 +25,7 @@ def menu(cmd):
 if __name__=="__main__":
 
     HOST = "127.0.0.1"
-    PORT = 45678
+    PORT = 45679
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind((HOST,PORT))
