@@ -10,7 +10,6 @@ def menu(cmd):
     if re.match('^(add |remove |change |liste |liste_all)',cmd): 
         arg= cmd.split(' ')
         return str(cs.cgi_connect(*arg))
-#    elif re.match('^')
     elif cmd== 'quit':
         return "Déconnexion"
     elif cmd== 'ls':
