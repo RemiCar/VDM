@@ -15,6 +15,13 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+-- Creation de la database si elle n'existe pas
+CREATE DATABASE IF NOT EXISTS VDM;
+
+-- Creation d'un user
+CREATE USER IF NOT EXISTS 'VDM_user'@'localhost' IDENTIFIED BY 'VDM';
+GRANT ALL PRIVILEGES ON VDM.* TO 'VDM_user'@'localhost';
+
 --
 -- Table structure for table `Machine`
 --
